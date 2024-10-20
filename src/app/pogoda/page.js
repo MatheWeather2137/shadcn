@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Cloud, Wind } from 'lucide-react';
 import { Minimize2 } from 'lucide-react';
 import { Droplet } from 'lucide-react';
+import { Thermometer } from 'lucide-react';
 
 export default function Pogoda(){
     const [daneDzis, setDaneDzis] = useState(null)
@@ -19,8 +20,8 @@ export default function Pogoda(){
     useEffect(()=>{
       const getData = async() =>{
         try{
-          const dataDzis = await fetch("https://api.openweathermap.org/data/2.5/weather?lat=52&lon=21&units=metric&appid=b6b25c78c679c8415fd7ab2defc95d8b")
-          const data5 = await fetch("https://api.openweathermap.org/data/2.5/forecast?lat=52&lon=21&units=metric&appid=b6b25c78c679c8415fd7ab2defc95d8b")
+          const dataDzis = await fetch("https://api.openweathermap.org/data/2.5/weather?lat=52.17935&lon=21.57251&units=metric&appid=b6b25c78c679c8415fd7ab2defc95d8b")
+          const data5 = await fetch("https://api.openweathermap.org/data/2.5/forecast?lat=52.17935&lon=21.57251&units=metric&appid=b6b25c78c679c8415fd7ab2defc95d8b")
           const dataDzisJson = await dataDzis.json()
           const data5Json = await data5.json()
           setDaneDzis(dataDzisJson)
@@ -44,9 +45,10 @@ export default function Pogoda(){
             {daneDzis && (
                 <Card className="h-30 w-90 m-1 pt-4">
                 <CardContent className="flex flex-wrap flex-col justify-center items-center">
-                  <h1 className="text-3xl">{daneDzis.main.temp}℃</h1>
+                  <h1>MIŃSK MAZOWIECKI</h1>
+                  <h1 className="text-3xl flex justify-between"><Thermometer />{daneDzis.main.temp}℃</h1>
                   <h1 className="text-xl">{dd+"/"+mm+"/"+yyyy}</h1>
-                  <h1 className="flex justify-between gap-2"><Cloud/>{daneDzis.clouds.all} | <Wind/>{daneDzis.wind.speed} | <Minimize2/>{daneDzis.main.pressure} | <Droplet />{daneDzis.main.humidity}</h1>
+                  <h1 className="flex justify-between gap-2"><Cloud/>{daneDzis.clouds.all}% | <Wind/>{daneDzis.wind.speed}m/s | <Minimize2/>{daneDzis.main.pressure}hPa | <Droplet />{daneDzis.main.humidity}%</h1>
                 </CardContent>
                 </Card>
             )}
