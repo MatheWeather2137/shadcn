@@ -24,7 +24,7 @@ export default function Pogoda(){
           const dataDzisJson = await dataDzis.json()
           const data5Json = await data5.json()
 
-          // Przefiltruj prognozy, aby uzyskać dane z jednej godziny (np. 12:00) dla każdego dnia
+          // sprawdza czy w dt_txt jest 12:00:00
           const filteredData = data5Json.list.filter(entry => entry.dt_txt.includes("12:00:00")).slice(1, 6) // 5 kolejnych dni
 
           setDaneDzis(dataDzisJson)
