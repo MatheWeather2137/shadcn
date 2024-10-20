@@ -19,13 +19,13 @@ export default function Pogoda(){
     useEffect(()=>{
       const getData = async() =>{
         try{
-          const dataDzis = await fetch("https://api.openweathermap.org/data/2.5/weather?lat=52&lon=21&units=metric&appid=b6b25c78c679c8415fd7ab2defc95d8b")
-          const data5 = await fetch("https://api.openweathermap.org/data/2.5/forecast?lat=52&lon=21&units=metric&appid=b6b25c78c679c8415fd7ab2defc95d8b")
+          const dataDzis = await fetch("https://api.openweathermap.org/data/2.5/weather?lat=52.17935&lon=21.57251&units=metric&appid=b6b25c78c679c8415fd7ab2defc95d8b")
+          const data5 = await fetch("https://api.openweathermap.org/data/2.5/forecast?lat=52.17935&lon=21.57251&units=metric&appid=b6b25c78c679c8415fd7ab2defc95d8b")
           const dataDzisJson = await dataDzis.json()
           const data5Json = await data5.json()
 
           // sprawdza czy w dt_txt jest 12:00:00
-          const filteredData = data5Json.list.filter(entry => entry.dt_txt.includes("12:00:00")).slice(1, 6) // 5 kolejnych dni
+          const filteredData = data5Json.list.filter(entry => entry.dt_txt.includes("12:00:00")).slice(0, 4) // 4 kolejnych dni
 
           setDaneDzis(dataDzisJson)
           setDane5(filteredData)
@@ -48,8 +48,9 @@ export default function Pogoda(){
             {daneDzis && (
                 <Card className="h-30 w-90 m-1 pt-4">
                   <CardContent className="flex flex-wrap flex-col justify-center items-center">
+                    <h1 className="text-2xl">{daneDzis.name}</h1>
                     <h1 className="text-3xl">{daneDzis.main.temp}℃</h1>
-                    <h1 className="text-xl">{dd+"/"+mm+"/"+yyyy}</h1>
+                    <h1 className="text-xl">{yyyy+"-"+mm+"-"+dd}</h1>
                     <h1 className="flex justify-between gap-2">
                       <Cloud/>{daneDzis.clouds.all}% | <Wind/>{daneDzis.wind.speed} m/s | <Minimize2/>{daneDzis.main.pressure} hPa | <Droplet />{daneDzis.main.humidity}%
                     </h1>
@@ -57,7 +58,7 @@ export default function Pogoda(){
                 </Card>
             )}
 
-            {/* Sekcja z prognozą na kolejne 5 dni */}
+            {/* Sekcja z prognozą na kolejne 4 dni */}
             <div className="flex flex-row flex-wrap justify-center mt-4">
               {dane5.length > 0 && dane5.map((forecast, idx) => {
                   // Przetwórz datę w formacie YYYY-MM-DD
