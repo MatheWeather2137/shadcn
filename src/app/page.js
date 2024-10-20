@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-row flex-wrap justify-center m-10">
-      {dane.length > 0 && dane.map((_, idx) => {
+      {dane.length > 0 && dane.map((item, idx) => {
         const reversedIdx = dane.length - 1 - idx; // Indeksowanie od końca, aby odwrócić kolejność wyświetlania
         const current = dane[reversedIdx]; // Bieżący element w odwróconej kolejności
         const prev = dane[reversedIdx - 1]; // Poprzedni element w odwróconej kolejności
